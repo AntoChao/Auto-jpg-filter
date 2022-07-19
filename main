@@ -1,0 +1,33 @@
+import cv2 as cv
+import os
+
+i = 0
+directory = r"C:\Users\Administrator\Pictures\photo manipulation"
+for file in os.listdir(directory):
+    file_path = os.path.join(directory, file)
+    # Delete all non .jpg file
+    if os.path.isfile(file_path):
+        file_extension = os.path.splitext(file_path)[1]
+        if file_extension != ".jpg":
+            os.remove(file_path)
+    #Change all files name
+    name = "{}{}{}".format(r"C:\Users\Administrator\Pictures\photo manipulation\image ", i, ".jpg")
+    i += 1
+    if os.path.isfile(file_path):
+        pass
+    else:
+        os.rename(file_path,name)
+
+#show all images
+for file in os.listdir(directory):
+    file_path = os.path.join(directory, file)
+
+    img = cv.imread(file_path)
+    img = cv.resize(img, (800,600), interpolation=cv.INTER_CUBIC)
+    cv.imshow('Image', img)
+
+    gray = cv.cvtColor(img,cv.COLOR_BGR2GRAY)
+    gray = cv.resize(gray, (800,600), interpolation=cv.INTER_CUBIC)
+    cv.imshow('Image GRAY', gray)
+
+    cv.waitKey(0)
